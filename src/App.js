@@ -1,7 +1,6 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { css } from "@emotion/react";
-import useFetch from "react-fetch-hook";
 import CircleLoader from "react-spinners/CircleLoader";
 import Card from "./components/Card";
 import Footer from "./components/Footer";
@@ -87,8 +86,8 @@ const App = () => {
               || Hare Krishna ||
             </h1>
             <h4 className="mt-3 text-white italic">
-              Search any verse from Bhagvadgita
-            </h4>
+              Search any verse from Bhagavadgita
+            </h4>``
           </div>
           <div className="content-center mt-4 mb-3 pt-0 ">
             <form>
@@ -98,20 +97,21 @@ const App = () => {
                   placeholder="Chapter"
                   value={chap}
                   onChange={inputEvent}
-                  className="w-24 mr-2 px-3 py-3 placeholder-yellow-500 text-blueGray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring "
+                  className="w-24 mr-2 px-3 py-3 placeholder-yellow-500 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring "
                 />
                 <input
                   type="number"
                   placeholder="Verse"
                   value={verse}
                   onChange={inputEventVerse}
-                  className="w-24 px-3 py-3  placeholder-yellow-500 text-blueGray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring "
+                  className="w-24 px-3 py-3  placeholder-yellow-500 text-blueGray-600 relative  bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring "
                 />
               </div>
               <div>
                 <button
-                  className="bg-yellow-500 mt-3 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:shadow hover:bg-yellow-600"
+                  className="bg-yellow-500 mt-3 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:shadow hover:bg-yellow-600"
                   type="button"
+                  // eslint-disable-next-line react/jsx-no-duplicate-props
                   type="submit"
                   onClick={onSubmitHandler}
                 >
