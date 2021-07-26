@@ -87,7 +87,7 @@ const App = () => {
             </h1>
             <h4 className="mt-3 text-white italic">
               Search any verse from Bhagavadgita
-            </h4>``
+            </h4>
           </div>
           <div className="content-center mt-4 mb-3 pt-0 ">
             <form>
