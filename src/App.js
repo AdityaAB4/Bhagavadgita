@@ -4,7 +4,6 @@ import { css } from "@emotion/react";
 import CircleLoader from "react-spinners/CircleLoader";
 import Card from "./components/Card";
 import Footer from "./components/Footer";
-import ErrorAlert from "./components/ErrorAlert";
 
 const override = css`
   display: block;
@@ -130,8 +129,8 @@ const App = () => {
               </div>
             </form>
           </div>
-          {error ? (
-            <ErrorAlert />
+          {/* {error ? (
+            <div>Error!!!</div>
           ) : (
             <div>
               <Card>
@@ -153,8 +152,8 @@ const App = () => {
                 <p>Explanation English : {shlokData.siva.ec}</p>
               </Card>
             </div>
-          )}
-          {/* {isLoading && !error ? (
+          )} */}
+          {isLoading && !error ? (
             <div className="mt-20">
               <CircleLoader
                 // color={color}
@@ -185,7 +184,7 @@ const App = () => {
                 <p>Explanation English : {shlokData.siva.ec}</p>
               </Card>
             </div>
-          )} */}
+          )}
         </div>
         <Footer />
       </div>
