@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 import CircleLoader from "react-spinners/CircleLoader";
 import Card from "./components/Card";
 import Footer from "./components/Footer";
+import ErrorAlert from "./components/ErrorAlert";
 
 const override = css`
   display: block;
@@ -19,6 +20,7 @@ const App = () => {
   const [verseValue, setVerseValue] = useState("");
 
   const [shlokData, setShlokData] = useState("");
+  const [error, setError] = useState(null);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -53,14 +55,22 @@ const App = () => {
     fetch(
       `https://bhagavadgitaapi.in/slok/${chap}/${verse}?api_key=f3d37247ccb09e11b`
     )
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw Error("Error occured...");
+        }
+        return res.json();
+      })
       .then((data) => {
         console.log(data);
         setShlokData(data);
         setIsLoading(false);
+        setError(null);
       })
       .catch((err) => {
         console.log(err);
+        setIsLoading(false);
+        setError(err.message);
       });
     setChap("");
     setVerse("");
@@ -120,8 +130,31 @@ const App = () => {
               </div>
             </form>
           </div>
-
-          {isLoading ? (
+          {error ? (
+            <ErrorAlert />
+          ) : (
+            <div>
+              <Card>
+                <p> Sanskrit : {shlokData.slok}</p>
+              </Card>
+              <Card>
+                <p>Transliteration : {shlokData.transliteration}</p>
+              </Card>
+              <Card>
+                <p>Hindi : {shlokData.tej.ht}</p>
+              </Card>
+              <Card>
+                <p>English : {shlokData.adi.et}</p>
+              </Card>
+              <Card>
+                <p>Explanation Hindi : {shlokData.chinmay.hc}</p>
+              </Card>
+              <Card className="md-3">
+                <p>Explanation English : {shlokData.siva.ec}</p>
+              </Card>
+            </div>
+          )}
+          {/* {isLoading && !error ? (
             <div className="mt-20">
               <CircleLoader
                 // color={color}
@@ -152,7 +185,7 @@ const App = () => {
                 <p>Explanation English : {shlokData.siva.ec}</p>
               </Card>
             </div>
-          )}
+          )} */}
         </div>
         <Footer />
       </div>
