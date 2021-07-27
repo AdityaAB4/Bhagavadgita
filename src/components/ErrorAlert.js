@@ -1,8 +1,10 @@
 import React from 'react'
+import Card from './Card';
 
 const ErrorAlert = () => {
     return (
       <div>
+        <Card>
         <div class="p-5">
           <div>
             <div class="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-md text-red-700 bg-red-100 border border-red-300 ">
@@ -25,7 +27,7 @@ const ErrorAlert = () => {
                 </svg>
               </div>
               <div class="text-xl font-normal  max-w-full flex-initial">
-                Error occured please Search again!
+                No data found please search again!
               </div>
               <div class="flex flex-auto flex-row-reverse">
                
@@ -34,6 +36,7 @@ const ErrorAlert = () => {
             
           </div>
         </div>
+        </Card>
       </div>
     );
 }
