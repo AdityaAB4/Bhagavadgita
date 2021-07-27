@@ -154,7 +154,7 @@ const App = () => {
                   placeholder="Chapter"
                   value={chap}
                   onChange={inputEvent}
-                  className={`w-24 mr-2 px-3 py-3 placeholder-yellow-500 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring   ${
+                  className={`w-24 mr-2 px-3 py-3 placeholder-yellow-500 text-blueGray-600 relative bg-white rounded text-sm border-2 shadow   outline-none focus:outline-none  focus:border-yellow-400  ${
                     chapError ? "bg-red-200" : ""
                   }`}
                   onFocus={chapOnFocusHandler}
@@ -164,7 +164,7 @@ const App = () => {
                   placeholder="Verse"
                   value={verse}
                   onChange={inputEventVerse}
-                  className={`w-24 mr-2 px-3 py-3 placeholder-yellow-500 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring   ${
+                  className={`w-24 mr-2 px-3 py-3 placeholder-yellow-500 text-blueGray-600 relative bg-white rounded text-sm border-2  shadow outline-none focus:outline-none focus:border-yellow-400   ${
                     chapError ? "bg-red-200" : ""
                   }`}
                   onFocus={verseOnFocusHandler}
@@ -184,10 +184,9 @@ const App = () => {
             </form>
           </div>
 
-
           {resStatus == 400 ? (
             <div>
-              <ErrorAlert/>{" "}
+              <ErrorAlert />{" "}
             </div>
           ) : (
             <>
