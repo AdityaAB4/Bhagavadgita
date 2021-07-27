@@ -18,10 +18,22 @@ const App = () => {
   const [chapValue, setChapValue] = useState("");
   const [verseValue, setVerseValue] = useState("");
 
-  const [shlokData, setShlokData] = useState("");
+  const [shlokData, setShlokData] = useState([]);
   const [error, setError] = useState(null);
 
   const [isLoading, setIsLoading] = useState(true);
+
+  const [chapError, setChapError] = useState(false);
+  const [verseError, setVerseError] = useState(false);
+
+  // onfocus error is removed
+  const chapOnFocusHandler = () => {
+    setChapError(false);
+  };
+  const verseOnFocusHandler = () => {
+    setChapError(false);
+  };
+
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -47,32 +59,62 @@ const App = () => {
   //  );
 
   const onSubmitHandler = (e) => {
-    setIsLoading(true);
     e.preventDefault();
-    setChapValue(chap);
-    setVerseValue(verse);
-    fetch(
-      `https://bhagavadgitaapi.in/slok/${chap}/${verse}?api_key=f3d37247ccb09e11b`
-    )
-      .then((res) => {
-        if (!res.ok) {
-          throw Error("Error occured...");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setShlokData(data);
-        setIsLoading(false);
-        setError(null);
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsLoading(false);
-        setError(err.message);
-      });
-    setChap("");
-    setVerse("");
+
+    if (chap  && verse) {
+        setIsLoading(true);
+
+        fetch(
+          `https://bhagavadgitaapi.in/slok/${chap}/${verse}?api_key=f3d37247ccb09e11b`
+        )
+          .then((res) => {
+            if (!res.ok) {
+              throw Error("Error occured...");
+            }
+            return res.json();
+          })
+          .then((data) => {
+            console.log(data);
+            setShlokData(data);
+            setIsLoading(false);
+            setError(null);
+          })
+          .catch((err) => {
+            console.log(err);
+            setIsLoading(false);
+            setError(true);
+          });
+        setChap("");
+        setVerse("");
+    } else {
+      setChapError(true)
+      setVerseError(true)
+    }
+
+    // setIsLoading(true);
+
+    // fetch(
+    //   `https://bhagavadgitaapi.in/slok/${chap}/${verse}?api_key=f3d37247ccb09e11b`
+    // )
+    //   .then((res) => {
+    //     if (!res.ok) {
+    //       throw Error("Error occured...");
+    //     }
+    //     return res.json();
+    //   })
+    //   .then((data) => {
+    //     console.log(data);
+    //     setShlokData(data);
+    //     setIsLoading(false);
+    //     setError(null);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     setIsLoading(false);
+    //     setError(err.message);
+    //   });
+    // setChap("");
+    // setVerse("");
   };
 
   // setTimeout(onSubmitHandler, 3000);
@@ -106,14 +148,20 @@ const App = () => {
                   placeholder="Chapter"
                   value={chap}
                   onChange={inputEvent}
-                  className="w-24 mr-2 px-3 py-3 placeholder-yellow-500 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring "
+                  className={`w-24 mr-2 px-3 py-3 placeholder-yellow-500 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring   ${
+                    chapError ? "bg-red-200" : ""
+                  }`}
+                  onFocus={chapOnFocusHandler}
                 />
                 <input
                   type="number"
                   placeholder="Verse"
                   value={verse}
                   onChange={inputEventVerse}
-                  className="w-24 px-3 py-3  placeholder-yellow-500 text-blueGray-600 relative  bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring "
+                  className={`w-24 mr-2 px-3 py-3 placeholder-yellow-500 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring   ${
+                    chapError ? "bg-red-200" : ""
+                  }`}
+                  onFocus={verseOnFocusHandler}
                 />
               </div>
               <div>
@@ -129,31 +177,10 @@ const App = () => {
               </div>
             </form>
           </div>
-          {/* {error ? (
-            <div>Error!!!</div>
-          ) : (
-            <div>
-              <Card>
-                <p> Sanskrit : {shlokData.slok}</p>
-              </Card>
-              <Card>
-                <p>Transliteration : {shlokData.transliteration}</p>
-              </Card>
-              <Card>
-                <p>Hindi : {shlokData.tej.ht}</p>
-              </Card>
-              <Card>
-                <p>English : {shlokData.adi.et}</p>
-              </Card>
-              <Card>
-                <p>Explanation Hindi : {shlokData.chinmay.hc}</p>
-              </Card>
-              <Card className="md-3">
-                <p>Explanation English : {shlokData.siva.ec}</p>
-              </Card>
-            </div>
-          )} */}
-          {isLoading && !error ? (
+
+          {error && <div>Error occured!!!</div>}
+
+          {isLoading ? (
             <div className="mt-20">
               <CircleLoader
                 // color={color}
